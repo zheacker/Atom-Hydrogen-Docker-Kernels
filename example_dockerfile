@@ -9,7 +9,7 @@ RUN chmod +x /tini
 # if using your own docker image without Jupyter installed:
 # RUN pip install jupyter
 
-ENV JUPYTER_TOKEN=my_secret_token
+ENV JUPYTER_TOKEN=ztoken
 # you can also pass this at runtime
 
 EXPOSE 8888

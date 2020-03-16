@@ -16,7 +16,7 @@ How to set up Dockerized remote Jupyter kernels, and connect to those kernels fr
     "name": "Dockerized Jupyter Kernel",
     "options": {
       "baseUrl": "http://localhost:8888",
-      "token": "my_secret_token"
+      "token": "ztoken"
     }
   }]
   ```
@@ -27,14 +27,27 @@ How to set up Dockerized remote Jupyter kernels, and connect to those kernels fr
 ## Instructions for Various Docker Images
 
 ### `jupyter/datascience-notebook`
-This image works without a custom dockerfile. The docker run command is `docker run -it --rm --name RemoteJupyterDataSci -p 8888:8888 -e JUPYTER_TOKEN=my_secret_token jupyter/datascience-notebook`
+This image works without a custom dockerfile, unless you need to install additional packages. The docker run command for the default image is:
+  ```
+  docker run -it --rm --name RemoteJupyterDataSci -p 8888:8888 -e JUPYTER_TOKEN=ztoken  jupyter/datascience-notebook
+  ```
+
+For a custom image which installs additional packages, the docker command is:
+  ```
+  docker run -it -p 8888:8888 --init -e JUPYTER_TOKEN=ztoken <image_name>
+  ```
 
 ### `continuumio/anaconda3`
 This image requires a custom docker file. I was able to build the image by editing the `continuumio/Anaconda3` dockerfile, which builds from debian. It required editing the `ENTRYPOINT` and `CMD` arguments.
 
 To build the image, navigate to the directory and run: `docker build -t myanaconda3 .`.
 
-Then `docker run -it -p 8888:8888 -e JUPYTER_TOKEN=my_secret_token myanaconda3`.
+Then `docker run -it -p 8888:8888 -e JUPYTER_TOKEN=ztoken myanaconda3`.
+
+## Atom Packages I Like
+- Hydrogen, duh
+- language-docker
+- language-markdown
 
 ## Resources
 1. Docker documentation, offline:

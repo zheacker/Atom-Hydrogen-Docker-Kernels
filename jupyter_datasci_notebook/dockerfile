@@ -1,0 +1,16 @@
+FROM jupyter/datascience-notebook
+
+# tini is included in docker v1.13 or greater, so you don't need to add your own tini
+# ADD https://github.com/krallin/tini/releases/download/v0.14.0/tini /tini
+# RUN chmod +x /tini
+
+# install any needed packages
+# RUN pip install nltk --quiet
+
+ENV JUPYTER_TOKEN=ztoken
+EXPOSE 8888
+
+# Do not need ENTRYPOINT tini if using Docker v1.13 or greater, and you use the --init flag in the docke run command
+# ENTRYPOINT ["/tini", "--"]
+
+CMD ["jupyter-notebook", "--allow-root", "--no-browser", "--port=8888"]
